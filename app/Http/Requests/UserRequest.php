@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
+
 class UserRequest extends FormRequest
 {
     public function authorize()
