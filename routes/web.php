@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Cache;
 
 Route::get('/', 'TopicsController@index')->name('root');
 
@@ -12,7 +13,10 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // 用户注册相关路由
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
-
+// Route::get('/test-cache', function () {
+//     Cache::put('test_key', 'test_value', 60);
+//     return Cache::get('test_key');
+// });
 // 密码重置相关路由
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
