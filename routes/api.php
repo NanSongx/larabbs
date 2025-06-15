@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\VerificationCodesController;
 use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\UsersController;
+use App\Http\Controllers\Api\ImagesController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -65,6 +68,13 @@ Route::prefix('v1')
                     // 当前登录用户信息
                     Route::get('user', [UsersController::class, 'me'])
                         ->name('user.show');
+                    // 编辑登录用户信息
+                    Route::patch('user', [UsersController::class, 'update'])   
+                        ->name('user.update');
+                    // 上传图片
+                    Route::post('images', [ImagesController::class, 'store'])
+                        ->name('images.store');
+                    
                 });
             });
 
