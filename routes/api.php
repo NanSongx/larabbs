@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\VerificationCodesController;
 use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\ImagesController;
+use App\Http\Controllers\Api\CategoriesController;
 
 
 /*
@@ -54,11 +55,14 @@ Route::prefix('v1')
                 Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])
                     ->name('authorizations.destroy');
             });
-        
+
         Route::middleware('throttle:' . config('api.rate_limits.access'))
             ->group(function() {
                 // 游客可以访问的接口
 
+                // 分类列表
+                Route::apiResource('categories', CategoriesController::class)
+                    ->only('index');
                 // 某个用户的详情
                 Route::get('users/{user}', [UsersController::class, 'show'])
                     ->name('users.show');
@@ -69,12 +73,12 @@ Route::prefix('v1')
                     Route::get('user', [UsersController::class, 'me'])
                         ->name('user.show');
                     // 编辑登录用户信息
-                    Route::patch('user', [UsersController::class, 'update'])   
+                    Route::patch('user', [UsersController::class, 'update'])
                         ->name('user.update');
                     // 上传图片
                     Route::post('images', [ImagesController::class, 'store'])
                         ->name('images.store');
-                    
+
                 });
             });
 
@@ -85,7 +89,7 @@ Route::prefix('v1')
         //     // abort(403, 'test');
         //     return 'this is version v1';
         // })->name('version');
-        
 
-        
+
+
     });
