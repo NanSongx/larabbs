@@ -5,21 +5,41 @@ namespace App\Http\Requests\Api;
 
 class TopicRequest extends FormRequest
 {
-    public function rules()
+    public function rules1()
     {
         return [
             'title' => 'required|string',
-            'body'  => 'required|string',
-            'category_id'  => 'required|exists:categories,id',
+            'body' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
         ];
+    }
+
+    public function rules()
+    {
+        switch ($this->method()) {
+            case 'POST':
+                return [
+                    'title' => 'required|string',
+                    'body' => 'required|string',
+                    'category_id' => 'required|exists:categories,id',
+                ];
+                break;
+            case 'PATCH':
+                return [
+                    'title' => 'string',
+                    'body' => 'string',
+                    'category_id' => 'exists:categories,id',
+                ];
+                break;
+        }
     }
 
     public function attributes()
     {
         return [
             'title' => '标题',
-            'body'  => '内容',
-            'category_id'  => '分类',
+            'body' => '内容',
+            'category_id' => '分类',
         ];
     }
 }
